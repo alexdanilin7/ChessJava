@@ -3,7 +3,24 @@ package Figures;
 // 1(w) - White 2(b) - Black;
 
 public abstract class Figure {
+    public char getColor() {
+        return color;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setColor(char color) {
+        this.color = color;
+    }
+
     private String name;
+
+    public String getName() {
+        return name;
+    }
+
     private char color;
 
     //private int[] position = new int[2];  // 0- row ; 1 - col
