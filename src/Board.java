@@ -6,9 +6,13 @@ import Figures.Pawn;
 import Figures.Queen;
 import Figures.Rook;
 
+import java.util.ArrayList;
+
 public class Board {
 //TODO: Список фигур и начальное положение всех фигур
     private Figure  fields[][] = new Figure[8][8];
+    private ArrayList<String> takeWhite = new ArrayList(16);
+    private ArrayList<String> takeBlack = new ArrayList(16);
 
     public char getColorGaming() {
         return colorGaming;
@@ -56,17 +60,38 @@ public class Board {
         return " "+figure.getColor()+figure.getName()+" ";
     }
 
-    public void move_figure(int row1, int col1, int row2, int col2 ){
+    public ArrayList<String> getTakeWhite() {
+        return takeWhite;
+    }
+
+    public ArrayList<String> getTakeBlack() {
+        return takeBlack;
+    }
+
+    public boolean move_figure(int row1, int col1, int row2, int col2 ){
 
         Figure figure =  this.fields[row1][col1];
-       // System.out.println(figure.canMove(row1, col1, row2, col2));
 
-        if (figure.canMove(row1, col1, row2, col2)){
+        if (figure.canMove(row1, col1, row2, col2) && this.fields[row2][col2]==null){
+            System.out.println("move");
             this.fields[row2][col2] = figure;
             this.fields[row1][col1] = null;
-            System.out.println("Ход успешен");
-
+            return true;
+        } else if (figure.canAttack(row1, col1, row2, col2) && this.fields[row2][col2] != null){
+            System.out.println("attack");
+           switch (this.fields[row2][col2].getColor()){
+            case 'w': this.takeWhite.add(this.fields[row2][col2].getColor()+this.fields[row2][col2].getName());break;
+            case 'b': this.takeBlack.add(this.fields[row2][col2].getColor()+this.fields[row2][col2].getName());break;
+            }
+            this.fields[row2][col2] = figure;
+            this.fields[row1][col1] = null;
+            return true;
         }
+        return false;
+
+
+
+
 
     }
 
