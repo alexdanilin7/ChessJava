@@ -77,7 +77,7 @@ public class Board {
             this.fields[row2][col2] = figure;
             this.fields[row1][col1] = null;
             return true;
-        } else if (figure.canAttack(row1, col1, row2, col2) && this.fields[row2][col2] != null){
+        } else if (figure.canAttack(row1, col1, row2, col2) && this.fields[row2][col2] != null && this.fields[row2][col2].getColor() != this.fields[row1][col1].getColor() ){
             System.out.println("attack");
            switch (this.fields[row2][col2].getColor()){
             case 'w': this.takeWhite.add(this.fields[row2][col2].getColor()+this.fields[row2][col2].getName());break;
